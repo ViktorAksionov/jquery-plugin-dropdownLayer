@@ -1,8 +1,8 @@
 {
     "name": "dropdownLayer-JQuery-Plugin",
-    "description": "",
-    "version": "0.1.0",
-    "repository": "",
+    "description": "Simple plugin for jQuery for dropdown layers",
+    "version": "0.2.0",
+    "repository": "https://github.com/ViktorAksionov/jquery-plugin-dropdownLayer.git",
     "devDependencies": {
         "grunt": "~0.4.2",
         "grunt-contrib-sass": "~0.7.x",

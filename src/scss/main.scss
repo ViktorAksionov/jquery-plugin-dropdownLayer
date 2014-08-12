@@ -1,0 +1,141 @@
+$user-custom-main-class: persons;
+$user-custom-subclass: person;
+
+$elemSelector: js-dropdown-item;
+$containerClass: js-dropdown-items;
+$descriptionClass: js-description;
+$dropdownClass: js-dropdown;
+$arrowClass: js-dropdown-arrow;
+$dropdownContentClass: js-dropdown-content;
+$disableDropdownClass: js-dropdown-disable;
+
+$fullname-color: #828282;
+$title-color: #828282;
+
+* {
+  box-sizing: border-box;
+}
+body {
+  background-color: #fff;
+  color: #333;
+  margin: 0;
+  min-height: 100%;
+}
+.container {
+  width: 100%;
+}
+.#{$user-custom-main-class} {
+  padding: 40px 0 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  &:before, &:after  {
+    clear:both;
+    content: " ";
+    display: table
+  }
+  .#{$user-custom-subclass} {
+    width: 25%;
+    margin-bottom:20px;
+    display: table;
+    float: left;
+    border-left: 20px solid transparent;
+    cursor: pointer;
+    .avatar {
+      width:100%;
+      display: block;
+      text-align: center;
+      img {
+        border: 24px solid #E5E5E5;
+        display: inline-block;
+        width: 100%;
+        vertical-align: middle;
+      }
+    }
+    &.active {
+      .avatar {
+        img {
+          border-color: #323A45;
+        }
+      }
+    }
+    .fullname {
+      width:100%;
+      display: block;
+      text-align: center;
+      font-family: Raleway, sans-serif;
+      color: $fullname-color;
+      font-size: 20px;
+      padding: 10px 0 5px;
+    }
+    .title {
+      width:100%;
+      display: block;
+      text-align: center;
+      font-family: Raleway, sans-serif;
+      color: $title-color;
+      font-size: 16px;
+    }
+    .#{$descriptionClass} {
+      display: none;
+    }
+    @media screen and (max-width:  700px) {
+      width: 50%;
+    }
+    @media screen and (max-width:  400px) {
+      width: 100%;
+      border-left: medium none;
+    }
+  }
+  .#{$dropdownClass} {
+    &:before, &:after {
+      clear:both;
+      content: " ";
+      display: table
+    }
+    background-clip: padding-box !important;
+    border: 0 solid rgba(0, 0, 0, 0);
+    box-sizing: border-box;
+    float: left;
+    padding: 0;
+    margin: 40px 0 20px;
+    width: 100%;
+    display: table;
+    border-color: transparent;
+    border-image: none;
+    border-style: solid;
+    border-width: 0 0 10px 20px;
+    @media screen and (max-width:  400px) {
+      border-left: medium none;
+    }
+    
+    .#{$dropdownContentClass} {
+      background: none repeat scroll 0 0 #FFFFFF;
+      border: 6px solid #E5E5E5;;
+      color: #333333;
+      position: relative;
+      width: 100%;
+      padding: 48px 32px 0;
+      .#{$arrowClass} {
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        margin-left: -55px;
+        border: 46px solid transparent;
+        border-bottom-color: #E5E5E5;
+        pointer-events: none;
+        -webkit-transition: left 0.3s;
+        -moz-transition: left 0.3s;
+        transition: left 0.3s;
+      }
+      p {
+        line-height: 26px;
+        margin: 0 0 40px;
+        padding: 0;
+        font-size: 16px;
+      }
+    }
+  }
+}

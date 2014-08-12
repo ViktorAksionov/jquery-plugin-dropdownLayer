@@ -1,0 +1,18 @@
+{
+    "name": "dropdownLayer-JQuery-Plugin",
+    "description": "",
+    "version": "0.1.0",
+    "repository": "",
+    "devDependencies": {
+        "grunt": "~0.4.2",
+        "grunt-contrib-sass": "~0.7.x",
+        "grunt-contrib-uglify": "~0.2.7",
+        "grunt-contrib-cssmin": "~0.10.x",
+        "grunt-contrib-coffee": "~0.10.x",
+        "grunt-contrib-watch": "~0.5.x",
+        "grunt-contrib-jade": "~0.12.x",
+        "grunt-contrib-jshint": "~0.10.x",
+        "grunt-remove-logging": "~0.2.x",
+        "coffee-script": "~1.7.x"
+    }
+}

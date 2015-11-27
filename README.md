@@ -2,6 +2,8 @@ jquery-plugin-dropdownLayer
 ===========================
 
 Simple plugin for jQuery for dropdown layers
+[![Build Status](https://travis-ci.org/ViktorAksionov/jquery-plugin-dropdownLayer.svg?branch=master)](https://travis-ci.org/ViktorAksionov/jquery-plugin-dropdownLayer/)
+
 
     v0.1  09/06/2014 initial version
     v0.2  17/07/2014 rewrote js to coffescript and added option `disableDropdownClass` for custom disabling of dropdown item

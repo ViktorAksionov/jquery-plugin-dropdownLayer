@@ -24,6 +24,7 @@
 
     v0.1  09/06/2014 initial version
     v0.2  17/07/2014 rewrote js to coffescript and added option `disableDropdownClass` for custom disabling of dropdown item
+    v0.3  27/11/2015 Added posibility to change slideUp and slideDown speed
  */
 (function($, window, document) {
   "use strict";
@@ -42,7 +43,14 @@
       'dropdownClass': "js-dropdown",
       'arrowClass': "js-dropdown-arrow",
       'dropdownContentClass': "js-dropdown-content",
-      'disableDropdownClass': "js-dropdown-disable"
+      'disableDropdownClass': "js-dropdown-disable",
+      'slideUpSpeed': 300,
+      'slideDownSpeed': 300,
+      'useSlideDown': false,
+      'useSlideUp': false,
+      'transitionEffect': 'swing',
+      'callOnCompleteHide': function() {},
+      'callOnCompleteShow': function() {}
     };
     settings = $.extend(defaults, options);
     getElemPercent = function() {
@@ -97,27 +105,81 @@
     };
     current_is_active = function() {
       $("." + settings.arrowClass).hide();
-      $('.' + settings.dropdownContentClass).slideUp(300, function() {
+      if (settings.useSlideUp) {
+        $('.' + settings.dropdownClass).slideUp({
+          duration: settings.slideUpSpeed,
+          easing: settings.transitionEffect,
+          complete: function() {
+            $('.' + settings.dropdownClass).remove();
+            current.removeClass("active");
+            user_state = 0;
+            settings.callOnCompleteHide();
+          }
+        });
+      } else {
         $('.' + settings.dropdownClass).remove();
         current.removeClass("active");
         user_state = 0;
-      });
+        settings.callOnCompleteHide();
+      }
     };
     current_is_not_active = function() {
       init_user_state(function() {
+
+        /*
+        $.each $('.'+settings.elemSelector), (ind, val) ->
+          if $(val).hasClass 'active'
+            if settings.useSlideUp
+              $('.'+settings.dropdownClass).slideUp 
+                duration: settings.slideUpSpeed,
+                easing: settings.transitionEffect,
+                complete: ->
+                  $(val).removeClass 'active'
+                  $('.'+settings.dropdownClass).remove()
+                  settings.callOnCompleteHide()
+                  return
+              return
+            else
+              $('.'+settings.dropdownClass).remove()
+              $(val).removeClass "active"
+              settings.callOnCompleteHide()
+              return
+         */
         var dscr, n;
-        $('.' + settings.elemSelector).removeClass("active");
-        $('.' + settings.dropdownClass).remove();
+        $.each($('.' + settings.elemSelector), function(ind, val) {
+          if ($(val).hasClass('active')) {
+            $('.' + settings.dropdownClass).remove();
+            $(val).removeClass("active");
+            settings.callOnCompleteHide();
+            return false;
+          }
+        });
         dscr = current.find("." + settings.descriptionClass).html();
         n = current.next();
         if (typeof n.position() !== "undefined") {
-          $("<div class=\"" + settings.dropdownClass + "\"><div class=\"" + settings.dropdownContentClass + "\"><div class=\"" + settings.arrowClass + "\"></div>" + dscr + "</div></div>").insertAfter(rec(current, n));
+          $("<div class=\"" + settings.dropdownClass + "\" style=\"display:none\"><div class=\"" + settings.dropdownContentClass + "\"><div class=\"" + settings.arrowClass + "\"></div>" + dscr + "</div></div>").insertAfter(rec(current, n));
         } else {
-          $("<div class=\"" + settings.dropdownClass + "\"><div class=\"" + settings.dropdownContentClass + "\"><div class=\"" + settings.arrowClass + "\"></div>" + dscr + "</div></div>").insertAfter(current);
+          $("<div class=\"" + settings.dropdownClass + "\" style=\"display:none\"><div class=\"" + settings.dropdownContentClass + "\"><div class=\"" + settings.arrowClass + "\"></div>" + dscr + "</div></div>").insertAfter(current);
         }
-        $("." + settings.arrowClass).show();
-        $("." + settings.arrowClass).css("left", current.position().left + current.outerWidth() / 2);
-        current.addClass("active");
+        if (settings.useSlideDown) {
+          $('.' + settings.dropdownClass).slideDown({
+            duration: settings.slideDownSpeed,
+            easing: settings.transitionEffect,
+            complete: function() {
+              $("." + settings.arrowClass).show();
+              $("." + settings.arrowClass).css("left", current.position().left + current.outerWidth() / 2);
+              current.addClass("active");
+              settings.callOnCompleteShow();
+            }
+          });
+        } else {
+          $('.' + settings.dropdownClass).show();
+          $("." + settings.arrowClass).show();
+          $("." + settings.arrowClass).css("left", current.position().left + current.outerWidth() / 2);
+          current.addClass("active");
+          settings.callOnCompleteShow();
+          return;
+        }
       });
     };
     rec = function(cc, nn) {
@@ -145,7 +207,7 @@
       var dscr;
       dscr = $(this).find("." + settings.descriptionClass).html();
       if (typeof dscr === "undefined" || dscr.length === 0 || $(this).hasClass(settings.disableDropdownClass)) {
-        return;
+        return true;
       } else {
         $(this).click(onClick);
       }

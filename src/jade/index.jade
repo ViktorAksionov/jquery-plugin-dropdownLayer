@@ -38,6 +38,12 @@ html(class='no-js')
           'arrowClass': "js-dropdown-arrow",
           'dropdownClass': "js-dropdown",
           'dropdownContentClass': "js-dropdown-content",
-          'disableDropdownClass': "js-dropdown-disable"
+          'disableDropdownClass': "js-dropdown-disable",
+          'useSlideUp': true,
+          'slideUpSpeed': 200,
+          'useSlideDown': true,
+          'slideDownSpeed': 200,
+          'callOnCompleteHide': function(){ console.log('your custom function which will be called on complete after hiding'); },
+          'callOnCompleteShow': function(){ console.log('your custom function which will be called on complete after showing'); }
         });
       });

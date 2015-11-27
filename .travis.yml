@@ -2,5 +2,7 @@ language: node_js
 node_js:
   - "0.12.7"
 before_install: npm install -g grunt-cli
-install: npm install
+install: 
+    - npm install
+    - gem install sass
 before_script: grunt build
